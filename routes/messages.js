@@ -4,3 +4,5 @@ const router = express.Router();
 const { getMssg, postMssg } = require('../controllers/messages');
 
 router.route('/messages').get(getMssg).post(postMssg);
+
+module.exports = router
