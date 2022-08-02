@@ -1,27 +1,24 @@
-require('dotenv').config();
+// require('dotenv').config();
+// const mongoose = require('mongoose');
+// const routes = require('./routes/messages')
 const express = require('express');
-const mongoose = require('mongoose');
 const app = express();
+const socket = require('socket.io');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(express.json());
 
-app.get('/messages', (req, res) => {
+// app.use(routes)
+
+const server = app.listen(3000, () => {
+    console.log('listening on 3000...');
 })
 
-const port = process.env.PORT || 3000;
-
-
-const start = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        app.listen(port, () => {
-            console.log(`listening on port ${port}`);
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-start();
+const io = socket(server)
+io.on("connection", (socket) => {
+    console.log('new connection');
+    socket.on('chat-message', (message) => {
+        console.log(message);
+    })
+})

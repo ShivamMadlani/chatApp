@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
+    <script src="http://localhost:3000/socket.io.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
     <div class="container">
-        <form>
-            <input type="text" id="msg-input" placeholder="Type message here" required>
-            <button type="submit" id ="send-btn">Post</button>
+        <form id="send-container">
+            <input type="text" name="messages" id="msg-input" placeholder="Type message here" required>
+            <button type="submit" id="send-btn" id="submit">Post</button>
         </form>
     </div>
 </body>
