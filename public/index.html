@@ -11,6 +11,42 @@
 </head>
 
 <body>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        #container {
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        #container div {
+            background-color: #CCC;
+            padding: 5px;
+        }
+
+        #container div:nth-child(2n) {
+            background-color: #FFF;
+        }
+
+        #send-container {
+            position: fixed;
+            padding-bottom: 30px;
+            bottom: 0;
+            background-color: white;
+            max-width: 1200px;
+            width: 80%;
+            display: flex;
+        }
+
+        #message-input {
+            flex-grow: 1;
+        }
+    </style>
     <div class="container">
         <form id="send-container">
             <input type="text" name="messages" id="msg-input" placeholder="Type message here" required>
