@@ -6,47 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
-    <script src="http://localhost:3000/socket.io.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js" defer></script>
+    <script src="./script.js" defer></script>
 </head>
 
 <body>
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
+    <div class="messages">
 
-        #container {
-            width: 80%;
-            max-width: 1200px;
-        }
-
-        #container div {
-            background-color: #CCC;
-            padding: 5px;
-        }
-
-        #container div:nth-child(2n) {
-            background-color: #FFF;
-        }
-
-        #send-container {
-            position: fixed;
-            padding-bottom: 30px;
-            bottom: 0;
-            background-color: white;
-            max-width: 1200px;
-            width: 80%;
-            display: flex;
-        }
-
-        #message-input {
-            flex-grow: 1;
-        }
-    </style>
+    </div>
     <div class="container">
         <form id="send-container">
             <input type="text" name="messages" id="msg-input" placeholder="Type message here" required>

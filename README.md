@@ -1,2 +1,2 @@
 # chatApp
-A realtime chat app using Node, socket.io and mongoose
+A realtime chat app backend using Node, socket.io and mongoose

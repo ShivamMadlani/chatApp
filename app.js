@@ -1,25 +1,27 @@
-// require('dotenv').config();
-// const mongoose = require('mongoose');
-// const routes = require('./routes/messages')
 const express = require('express');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
+const cors = require('cors');
+
+const APP_PORT = process.env.APP_PORT || 3000;
+
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public'));
-app.use(express.json());
-// app.use(routes)
+app.use(cors());
+app.use(express.static('public'))
 
-const httpServer = createServer(app);
-const io = new Server(httpServer);
+const httpserver = createServer(app);
+const io = new Server(httpserver, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST'],
+    },
+});
 
-io.on("connection", (sokt) => {
-    console.log('new connection');
-    sokt.on('chat-message', (message) => {
-        sokt.broadcast.emit('message', message);
-    })
-})
+io.on('connection', (socket) => {
+    console.log(`new connection ${socket.id}`);
+});
 
-console.log('listening on port 3000...');
-httpServer.listen(3000);
+httpserver.listen(APP_PORT, () => {
+    console.log(`listening on port ${APP_PORT}`);
+});
