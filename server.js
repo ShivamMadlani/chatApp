@@ -20,6 +20,14 @@ const io = new Server(httpserver, {
 
 io.on('connection', (socket) => {
     console.log(`new connection ${socket.id}`);
+    socket.on('chat-message', (mssg) => {
+        io.emit('new_message', mssg);
+    });
+    // socket.broadcast.emit('chat-message', 'A user has joined');
+
+    // io.on('disconnect', ()=>{
+    //     io.emit('chat-message', 'A user left');
+    // })
 });
 
 httpserver.listen(APP_PORT, () => {
