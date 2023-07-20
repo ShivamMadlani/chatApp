@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const connectDb = (url) => {
+    mongoose.set('strictQuery', true);
     mongoose.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,

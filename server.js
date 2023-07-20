@@ -6,6 +6,16 @@ const cors = require('cors');
 const path = require('path');
 const connectDb = require('./db');
 const UserSchema = require('./model/model');
+const flash = require('express-flash');
+const session = require('express-session');
+
+const passport = require('passport');
+const initializePassport = require('./auth');
+initializePassport(passport, name => {
+    return UserSchema.findOne({ name: name });
+}, id => {
+    return UserSchema.find({ id: id });
+});
 
 const APP_PORT = process.env.APP_PORT || 3000;
 
@@ -15,6 +25,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
+app.use(flash());
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const httpserver = createServer(app);
 
@@ -25,6 +43,12 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/public/login.html');
 })
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}))
 
 app.post('/register', async (req, res) => {
     try {
