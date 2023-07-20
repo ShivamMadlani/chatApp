@@ -11,11 +11,7 @@ const session = require('express-session');
 
 const passport = require('passport');
 const initializePassport = require('./auth');
-initializePassport(passport, name => {
-    return UserSchema.findOne({ name: name });
-}, id => {
-    return UserSchema.find({ id: id });
-});
+initializePassport(passport);
 
 const APP_PORT = process.env.APP_PORT || 3000;
 
@@ -65,6 +61,9 @@ app.post('/register', async (req, res) => {
     }
 })
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+})
 
 const io = new Server(httpserver, {
     cors: {
