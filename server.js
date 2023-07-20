@@ -28,7 +28,7 @@ app.get('/login', (req, res) => {
 
 app.post('/register', async (req, res) => {
     try {
-        const user = await UserSchema.create({
+        await UserSchema.create({
             name: req.body.name,
             password: req.body.password
         });
