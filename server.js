@@ -4,11 +4,12 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const path = require('path');
+
 const connectDb = require('./db');
 const UserSchema = require('./model/model');
+
 const flash = require('express-flash');
 const session = require('express-session');
-
 const passport = require('passport');
 const initializePassport = require('./auth');
 initializePassport(passport);
@@ -19,7 +20,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(session({
@@ -32,21 +32,35 @@ app.use(passport.session());
 
 const httpserver = createServer(app);
 
-app.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/public/register.html');
-})
+function checkAuth(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect('/login');
+}
 
-app.get('/login', (req, res) => {
+function checkNotAuth(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    next();
+}
+
+app.get('/login', checkNotAuth, (req, res) => {
     res.sendFile(__dirname + '/public/login.html');
 })
 
-app.post('/login', passport.authenticate('local', {
+app.post('/login', checkNotAuth, passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }))
 
-app.post('/register', async (req, res) => {
+app.get('/register', checkNotAuth, (req, res) => {
+    res.sendFile(__dirname + '/public/register.html');
+})
+
+app.post('/register', checkNotAuth, async (req, res) => {
     try {
         await UserSchema.create({
             name: req.body.name,
@@ -61,8 +75,16 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.get('/', (req, res) => {
+app.get('/', checkAuth, (req, res) => {
+    app.use(express.static(path.join(__dirname, 'public')));
     res.sendFile(__dirname + '/public/index.html');
+})
+
+app.post('/logout', (req, res) => {
+    req.logOut(req.user, err => {
+        if (err) return next(err);
+        res.redirect('/login');
+    });
 })
 
 const io = new Server(httpserver, {
