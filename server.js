@@ -18,6 +18,9 @@ const APP_PORT = process.env.APP_PORT || 3000;
 
 const app = express();
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -47,7 +50,7 @@ function checkNotAuth(req, res, next) {
 }
 
 app.get('/login', checkNotAuth, (req, res) => {
-    res.sendFile(__dirname + '/public/login.html');
+    res.render('login');
 })
 
 app.post('/login', checkNotAuth, passport.authenticate('local', {
@@ -57,7 +60,7 @@ app.post('/login', checkNotAuth, passport.authenticate('local', {
 }))
 
 app.get('/register', checkNotAuth, (req, res) => {
-    res.sendFile(__dirname + '/public/register.html');
+    res.render('register');
 })
 
 app.post('/register', checkNotAuth, async (req, res) => {
@@ -76,8 +79,8 @@ app.post('/register', checkNotAuth, async (req, res) => {
 })
 
 app.get('/', checkAuth, (req, res) => {
-    app.use(express.static(path.join(__dirname, 'public')));
-    res.sendFile(__dirname + '/public/index.html');
+    app.use(express.static(path.join(__dirname, 'views')));
+    res.render('index', { name: req.user.name });
 })
 
 app.post('/logout', (req, res) => {
