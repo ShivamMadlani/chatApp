@@ -5,21 +5,21 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const path = require('path');
 
-const connectDb = require('./db');
-const UserSchema = require('./model/model');
-const messagesSchema = require('./model/messages_model');
+const connectDb = require('./config/db');
+const UserSchema = require('../model/model');
+const messagesSchema = require('../model/messages_model');
 
 const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
-const initializePassport = require('./auth');
+const initializePassport = require('./config/auth');
 initializePassport(passport);
 
 const APP_PORT = process.env.APP_PORT || 3000;
 
 const app = express();
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 
 app.use(cors());
@@ -86,7 +86,7 @@ app.post('/register', checkNotAuth, async (req, res) => {
 })
 
 app.get('/', checkAuth, (req, res) => {
-    app.use(express.static(path.join(__dirname, 'views')));
+    app.use(express.static(path.join(__dirname, '../views')));
     res.render('index', { name: req.user.name });
 })
 
