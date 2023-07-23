@@ -1,4 +1,6 @@
 require('dotenv').config();
+
+//server imports
 const express = require('express');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
@@ -9,6 +11,7 @@ const connectDb = require('./config/db');
 const UserSchema = require('../model/model');
 const messagesSchema = require('../model/messages_model');
 
+//passport imports and init
 const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
@@ -27,13 +30,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(session({
-    secret: 'aewiovncnfpAWJefcp',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+//create socket instance
 const httpserver = createServer(app);
 const io = new Server(httpserver, {
     cors: {
@@ -44,7 +48,7 @@ const io = new Server(httpserver, {
 
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) {
-        return next()
+        return next();
     }
     res.redirect('/login');
 }
@@ -57,18 +61,31 @@ function checkNotAuth(req, res, next) {
 }
 
 app.get('/login', checkNotAuth, (req, res) => {
-    res.render('login');
-})
+    try {
+        res.render('login');
+        res.status(200);
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+    }
+});
 
 app.post('/login', checkNotAuth, passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
-}))
+}));
+
 
 app.get('/register', checkNotAuth, (req, res) => {
-    res.render('register');
-})
+    try {
+        res.render('register');
+        res.status(200);
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+    }
+});
 
 app.post('/register', checkNotAuth, async (req, res) => {
     try {
@@ -77,17 +94,23 @@ app.post('/register', checkNotAuth, async (req, res) => {
             password: req.body.password
         });
         res.redirect('/login');
-        // res.status(201).json({ user });
+        res.status(201);
     }
-    catch (err) {
+    catch (error) {
+        console.error(error);
         res.redirect('/register');
-        // res.status(500).json({ msg: err })
+        res.status(500);
     }
 })
 
 app.get('/', checkAuth, (req, res) => {
-    app.use(express.static(path.join(__dirname, '../views')));
-    res.render('index', { name: req.user.name });
+    try {
+        app.use(express.static(path.join(__dirname, '../views')));
+        res.render('index', { name: req.user.name });
+        res.status(200);
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 io.on('connection', (socket) => {
@@ -106,7 +129,6 @@ io.on('connection', (socket) => {
             }
         } catch (err) {
             console.log(err);
-            console.log("failed to fetch messages from db for user: " + req.user.name);
         }
     }
     fetchMessagesfromDB();
@@ -116,6 +138,7 @@ io.on('connection', (socket) => {
             sender: data.sender,
             text: data.text
         });
+
         try {
             messagesSchema.create({
                 name: data.sender,
@@ -123,21 +146,16 @@ io.on('connection', (socket) => {
             });
         }
         catch (err) {
-            console.log(err);
+            console.warn(err);
         }
     });
-
-    // socket.broadcast.emit('chat-message', 'A user has joined');
-
-    // io.on('disconnect', ()=>{
-    //     io.emit('chat-message', 'A user left');
-    // })
 });
 
 app.post('/logout', (req, res) => {
     req.logOut(req.user, err => {
         if (err) return next(err);
         res.redirect('/login');
+        res.status(200);
     });
 })
 
@@ -146,7 +164,7 @@ const start = async () => {
         await connectDb(process.env.MONGO_URI);
         httpserver.listen(APP_PORT, () => { console.log(`listening on port ${APP_PORT}`); });
     } catch (error) {
-        console.log(error);
+        console.warn(error);
     }
 }
 
