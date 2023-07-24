@@ -22,7 +22,7 @@ const APP_PORT = process.env.APP_PORT || 3000;
 
 const app = express();
 
-app.set('views', path.join(__dirname, '../views'));
+app.use(express.static(path.join(__dirname, '../views')));
 app.set('view engine', 'ejs');
 
 app.use(cors());
@@ -105,7 +105,6 @@ app.post('/register', checkNotAuth, async (req, res) => {
 
 app.get('/', checkAuth, (req, res) => {
     try {
-        app.use(express.static(path.join(__dirname, '../views')));
         res.render('index', { name: req.user.name });
         res.status(200);
     } catch (error) {
