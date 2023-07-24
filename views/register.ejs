@@ -5,25 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChatApp-Register</title>
-  <!-- <link rel="stylesheet" href="styles.css"> -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@3.1.0/dist/full.css" rel="stylesheet" type="text/css" /> -->
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
-<body>
-  <p>Sign up with</p>
-  <p>Or</p>
-  <form action="/register" method="post">
-    <div>
-      <label for="name">name</label>
-      <input type="name" id="name" name="name">
-      <br />
-      <label for="password">password</label>
-      <input type="password" id="password" name="password">
-      <br />
-      <button type="submit">Sign up</button>
+<body class="flex items-center justify-center h-screen">
+  <div class="card card-normal card-bordered w-96 bg-base-100 shadow-xl flex items-center justify-center">
+    <div class="card-title pt-8">
+      <p>Sign up with</p>
     </div>
-  </form>
-  <p>Have an account? <a href="/login">login</a></p>
+    <div class="card-title">
+      <p>Or</p>
+    </div>
+    <div class="card-body">
+      <form action="/register" method="post">
+        <div class="form-control w-full max-w-xs">
+          <label for="name" class="label label-text">name</label>
+          <input type="name" id="name" name="name" class="input input-bordered w-full max-w-xs">
+          <label for="password" class="label label-text">password</label>
+          <input type="password" id="password" name="password" class="input input-bordered w-full max-w-xs">
+          <br />
+          <div class="card-actions justify-center">
+            <button type="submit" class="btn btn-neutral glass btn-wide">Sign up</button>
+          </div>
+        </div>
+      </form>
+      <p>Have an account? <a href="/login" class="btn btn-sm btn-link">login</a></p>
+    </div>
+  </div>
 
 
   <!-- <div class="card w-96 bg-base-100 shadow-xl">
