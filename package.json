@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "tailwindcss build -i css/styles.css -o views/styles.css",
+    "watch-css": "npx tailwindcss -i ./css/styles.css -o ./views/styles.css --watch",
     "start": "nodemon ./server/server.js"
   },
   "repository": {
