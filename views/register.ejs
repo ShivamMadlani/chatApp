@@ -10,7 +10,7 @@
 
 <body class="flex items-center justify-center h-screen">
   <div class="card card-normal card-bordered w-96 bg-base-100 shadow-xl flex items-center justify-center">
-    <div class="card-title pt-8">
+    <div class="card-title pt-6">
       <p>Sign up with</p>
     </div>
     <div class="card-title">
@@ -19,9 +19,9 @@
     <div class="card-body">
       <form action="/register" method="post">
         <div class="form-control w-full max-w-xs">
-          <label for="name" class="label label-text">name</label>
+          <label for="name" class="label label-text">Name</label>
           <input type="name" id="name" name="name" class="input input-bordered w-full max-w-xs">
-          <label for="password" class="label label-text">password</label>
+          <label for="password" class="label label-text">Password</label>
           <input type="password" id="password" name="password" class="input input-bordered w-full max-w-xs">
           <br />
           <div class="card-actions justify-center">
@@ -29,8 +29,9 @@
           </div>
         </div>
       </form>
-      <p>Have an account? <a href="/login" class="btn btn-sm btn-link">login</a></p>
+      <!-- <p class="flex justify-between items-center">Have an account?<a href="/login" class="btn btn-sm btn-link">Login</a></p> -->
     </div>
+    <p class="pb-6">Have an account? <a href="/login" class="btn btn-sm btn-link">Login</a></p>
   </div>
 
 
