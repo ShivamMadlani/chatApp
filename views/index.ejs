@@ -7,28 +7,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat App</title>
   <script src="http://localhost:3000/socket.io/socket.io.js" defer></script>
+  <link rel="stylesheet" href="./styles.css">
   <script src="./script.js" defer></script>
 </head>
 
-<body>
+<body class="h-screen bg-base-300">
   <div class="messages">
 
   </div>
 
-  <div class="container">
-    <form id="send-container">
-      <input type="text" name="messages" id="msg-input" placeholder="Type message here" required>
-      <button type="submit" id="send-btn" id="submit">Post</button>
-    </form>
+  <div class="fixed bottom-1">
+    <div class="container">
+      <form id="send-container">
+        <div class="join w-screen mx-1">
+          <input class="input input-bordered join-item w-screen" type="text" name="messages" id="msg-input" placeholder="Type message here" required>
+          <button class="btn join-item rounded-r-full" type="submit" id="send-btn" id="submit">Post</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <div>
+  <!-- <div>
     <p id="username">
       <%= name %>
     </p>
     <form action="/logout" method="post">
       <button type="submit" id="logout-btn">Log Out</button>
     </form>
-  </div>
+  </div> -->
 </body>
 
 </html>

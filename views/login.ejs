@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 
-<body class="flex items-center justify-center h-screen">
+<body class="flex items-center justify-center h-screen bg-base-300">
   <div class="card card-normal card-bordered w-96 bg-base-100 shadow-xl flex items-center justify-center">
     <div class="card-title pt-6">
       <p>Login with</p>
@@ -16,9 +16,6 @@
     <div class="card-title">
       <p>Or</p>
     </div>
-    <% if (messages.error) { %>
-    <%= messages.error %>
-    <% } %>
     <div class="card-body">
       <form action="/login" method="post">
         <div class="form-control w-full max-w-xs">
@@ -34,6 +31,15 @@
       </form>
     </div>
     <p class="pb-6"> Don't have an account? <a href="/register" class="btn btn-sm btn-link">Register</a></p>
+  </div>
+  <div class="toast">
+    <% if(messages.error) {%>
+    <div class="alert alert-error">
+      <span>
+        <%= messages.error %>
+      </span>
+    </div>
+    <% } %>
   </div>
 </body>
 
