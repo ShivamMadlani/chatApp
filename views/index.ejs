@@ -7,28 +7,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat App</title>
   <script src="http://localhost:3000/socket.io/socket.io.js" defer></script>
+  <link rel="stylesheet" href="./styles.css">
   <script src="./script.js" defer></script>
 </head>
 
-<body>
-  <div class="messages">
+<body class="h-screen bg-base-300">
+  <div class="h-full">
+    <div class="messages w-full max-h-full p-2 fixed bottom-14 overflow-auto">
 
+    </div>
   </div>
 
-  <div class="container">
-    <form id="send-container">
-      <input type="text" name="messages" id="msg-input" placeholder="Type message here" required>
-      <button type="submit" id="send-btn" id="submit">Post</button>
+  <div class="fixed bottom-2">
+    <div class="container">
+      <form id="send-container">
+        <div class="join w-screen mx-1">
+          <input class="input input-info input-bordered join-item w-screen" type="text" name="messages" id="msg-input" placeholder="Type message here" required>
+          <button class="btn bg-base-100 join-item rounded-r-full btn-outline btn-accent" type="submit" id="send-btn" id="submit">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="avatar online placeholder absolute right-1 top-1 dropdown dropdown-hover dropdown-end">
+    <div class="bg-neutral-focus text-neutral-content rounded-full w-16">
+      <label tabindex="0" class="text-xl" id="username">
+        <%= name %>
+      </label>
+    </div>
+    <form action="/logout" method="post" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 m-1">
+      <li>
+        <button type="submit" id="logout-btn">Log Out</button>
+      </li>
     </form>
   </div>
-  <div>
-    <p id="username">
-      <%= name %>
-    </p>
-    <form action="/logout" method="post">
-      <button type="submit" id="logout-btn">Log Out</button>
-    </form>
-  </div>
+
 </body>
 
 </html>
