@@ -19,7 +19,15 @@ msgForm.addEventListener('submit', (e) => {
 })
 
 function appendMessage(sender, text) {
-    const msgElement = document.createElement("p");
-    msgElement.innerText = sender + ": " + text;
+    const msgElement = document.createElement("div");
+    if (sender == username)
+        msgElement.classList.add("chat", "chat-end");
+    else
+        msgElement.classList.add("chat", "chat-start");
+    const msgData = document.createElement("div");
+    msgData.classList.add("chat-bubble");
+    msgData.innerText = sender + ": " + text;
+    msgElement.appendChild(msgData);
     msgContainer.appendChild(msgElement);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
 }
