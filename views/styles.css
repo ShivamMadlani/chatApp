@@ -951,6 +951,17 @@ html {
   padding-bottom: 0.25rem;
 }
 
+.chat-image {
+  grid-row: span 2 / span 2;
+  align-self: flex-end;
+}
+
+.chat-header {
+  grid-row-start: 1;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .chat-bubble {
   position: relative;
   display: block;
@@ -2401,6 +2412,10 @@ html {
   width: 100vw;
 }
 
+.w-12 {
+  width: 3rem;
+}
+
 .max-w-xs {
   max-width: 20rem;
 }
@@ -2419,14 +2434,6 @@ html {
 
 .overflow-auto {
   overflow: auto;
-}
-
-.overflow-scroll {
-  overflow: scroll;
-}
-
-.scroll-auto {
-  scroll-behavior: auto;
 }
 
 .rounded-full {
@@ -2470,9 +2477,18 @@ html {
   line-height: 1.75rem;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .text-neutral-content {
   --tw-text-opacity: 1;
   color: hsl(var(--nc) / var(--tw-text-opacity));
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .shadow {
