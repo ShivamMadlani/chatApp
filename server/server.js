@@ -122,7 +122,8 @@ io.on('connection', (socket) => {
                 messagesfromDB.forEach(element => {
                     socket.emit('new_message', {
                         sender: element.name,
-                        text: element.message
+                        text: element.message,
+                        time: element.time
                     });
                 });
             }
@@ -135,13 +136,15 @@ io.on('connection', (socket) => {
     socket.on('chat-message', (data) => {
         io.emit('new_message', {
             sender: data.sender,
-            text: data.text
+            text: data.text,
+            time: data.time
         });
 
         try {
             messagesSchema.create({
                 name: data.sender,
-                message: data.text
+                message: data.text,
+                time: data.time
             });
         }
         catch (err) {
