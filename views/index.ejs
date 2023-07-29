@@ -9,12 +9,26 @@
   <script src="http://localhost:3000/socket.io/socket.io.js" defer></script>
   <link rel="stylesheet" href="./styles.css">
   <script src="./script.js" defer></script>
+  <style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scroll {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+  </style>
 </head>
 
 <body class="h-screen bg-base-300 w-full">
   <!-- <div class="chat chat-start chat-end chat-bubble chat-image avatar placeholder bg-neutral-focus text-neutral-content rounded-full w-12 chat-header opacity-70 chat-footer"></div> -->
   <div class="h-full">
-    <div class="messages w-full max-h-full p-2 fixed bottom-14 overflow-auto">
+    <div class="messages w-full max-h-full p-2 fixed bottom-14 overflow-auto no-scroll">
 
     </div>
   </div>
