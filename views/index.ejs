@@ -9,22 +9,36 @@
   <script src="http://localhost:3000/socket.io/socket.io.js" defer></script>
   <link rel="stylesheet" href="./styles.css">
   <script src="./script.js" defer></script>
+  <style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scroll {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+  </style>
 </head>
 
-<body class="h-screen bg-base-300">
+<body class="h-screen bg-base-300 w-full">
   <!-- <div class="chat chat-start chat-end chat-bubble chat-image avatar placeholder bg-neutral-focus text-neutral-content rounded-full w-12 chat-header opacity-70 chat-footer"></div> -->
   <div class="h-full">
-    <div class="messages w-full max-h-full p-2 fixed bottom-14 overflow-auto">
+    <div class="messages w-full max-h-full p-2 fixed bottom-14 overflow-auto no-scroll">
 
     </div>
   </div>
 
-  <div class="fixed bottom-2">
-    <div class="container">
+  <div class="fixed bottom-2 w-full">
+    <div>
       <form id="send-container">
-        <div class="join w-screen mx-1">
-          <input class="input input-info input-bordered join-item w-screen" type="text" name="messages" id="msg-input" placeholder="Type message here" required>
-          <button class="btn bg-base-100 join-item rounded-r-full btn-outline btn-accent" type="submit" id="send-btn" id="submit">Post</button>
+        <div class="join w-full">
+          <input class="input input-success input-bordered join-item w-full" type="text" name="messages" id="msg-input" placeholder="Type message here" required>
+          <button class="btn bg-base-100 join-item rounded-r-md btn-outline btn-success" type="submit" id="send-btn" id="submit">Post</button>
         </div>
       </form>
     </div>

@@ -12,7 +12,11 @@ msgForm.addEventListener('submit', (e) => {     //emits message and its info to 
     e.preventDefault();
     const message = msgInput.value;
     const date = new Date();
-    const msgSendTime = date.getHours() + ":" + date.getMinutes();
+    let msgSendTime;
+    if (date.getMinutes() < 10)
+        msgSendTime = date.getHours() + ":0" + date.getMinutes();
+    else
+        msgSendTime = date.getHours() + ":" + date.getMinutes();
     socket.emit('chat-message', {
         sender: username,
         text: message,
