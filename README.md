@@ -40,3 +40,34 @@ To run the Chat Application locally, follow these steps:
 
     ```bash
     cd chatApp
+3. Install the dependencies using npm:
+
+    ```bash
+    npm install
+4. Create a .env file in the root directory and add the following environment variables:
+
+    ```bash
+    MONGODB_URI=your-mongodb-uri
+    SECRET_KEY=your-secret-key
+Replace your-mongodb-uri with the MongoDB connection URI and your-secret-key with your secret key for session management.
+5. Start the server:
+
+    ```bash
+    npm start
+Open your web browser and visit http://localhost:3000 to access the Chat Application.
+
+## Contributing
+
+We welcome contributions from the community to make the Chat Application even better. If you'd like to contribute, please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Clone your forked repository to your local machine.
+3. Create a new branch for your feature or bug fix:
+
+    ```bash
+    git checkout -b feature/your-feature-name
+4. Make your changes, commit them, and push them to your forked repository.
+5. Create a pull request from your forked repository to the main repository.
+6. Wait for review and approval from the maintainers.
+
+Thank you for considering contributing to this project!
