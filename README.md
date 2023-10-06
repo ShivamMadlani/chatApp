@@ -50,6 +50,7 @@ To run the Chat Application locally, follow these steps:
     MONGODB_URI=your-mongodb-uri
     SECRET_KEY=your-secret-key
 Replace your-mongodb-uri with the MongoDB connection URI and your-secret-key with your secret key for session management.
+
 5. Start the server:
 
     ```bash
