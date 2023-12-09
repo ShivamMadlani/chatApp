@@ -60,6 +60,15 @@ function checkNotAuth(req, res, next) {
     next();
 }
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] })
+);
+
+app.get('/auth/google/callback', passport.authenticate( 'google', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+ }));
+
 app.get('/login', checkNotAuth, (req, res) => {
     try {
         res.render('login');
