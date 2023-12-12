@@ -36,6 +36,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static('public'));
 
 //create socket instance
 const httpserver = createServer(app);
@@ -59,6 +60,15 @@ function checkNotAuth(req, res, next) {
     }
     next();
 }
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] })
+);
+
+app.get('/auth/google/callback', passport.authenticate( 'google', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+ }));
 
 app.get('/login', checkNotAuth, (req, res) => {
     try {
