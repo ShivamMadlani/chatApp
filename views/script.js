@@ -17,8 +17,6 @@ function formatTimestamp(time) {
 
 socket.on("new_message", (data) => {
   try {
-    console.log("Received raw time:", data.time);
-
     // Assuming data.time is in the format "H:mm"
     const [hours, minutes] = data.time.split(":");
     const messageTime = new Date();
@@ -30,7 +28,6 @@ socket.on("new_message", (data) => {
     }
 
     const formattedTime = formatTimestamp(messageTime.toISOString());
-    console.log("Formatted time:", formattedTime);
 
     appendMessage(data.sender, data.text, formattedTime);
   } catch (error) {
